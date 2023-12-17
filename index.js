@@ -1,8 +1,8 @@
 const express = require("express");
+const config = require("./config");
 const app = express();
 
-
-const port = 5000
+const port = config.APP_PORT
 
 const start = () => {
   try {
