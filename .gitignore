@@ -1,2 +1,4 @@
 /node_modules
+
+# keep env file out of the version control
 .env
