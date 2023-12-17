@@ -2,10 +2,12 @@ const express = require("express");
 const config = require("./config");
 const connect = require("./db/connect");
 const notFound = require("./middlewares/notFound");
+const errorHandler = require("./errorHandler");
 
 const app = express();
 
 app.use(notFound);
+app.use(errorHandler);
 
 const port = config.APP_PORT || 5000;
 
