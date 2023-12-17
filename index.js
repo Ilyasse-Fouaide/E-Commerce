@@ -2,7 +2,7 @@ const express = require("express");
 const config = require("./config");
 const app = express();
 
-const port = config.APP_PORT
+const port = config.APP_PORT || 5000
 
 const start = () => {
   try {
