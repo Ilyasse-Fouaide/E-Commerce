@@ -7,10 +7,13 @@ const errorHandler = require("./errorHandler");
 const xss = require("xss-clean");
 const helmet = require("helmet");
 const cors = require("cors");
+// logger package
+const morgan = require("morgan");
 
 const app = express();
 
 // middlewares
+app.use(morgan("tiny"));
 app.use(cors({ origin: "*" }));
 app.use(xss());
 app.use(helmet());
