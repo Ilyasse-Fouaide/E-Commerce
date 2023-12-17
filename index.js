@@ -9,6 +9,8 @@ const helmet = require("helmet");
 const cors = require("cors");
 // logger package
 const morgan = require("morgan");
+// routes
+const authRouter = require("./routes/auth.router");
 
 const app = express();
 
@@ -21,6 +23,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => { res.status(200).json({ message: "Hello to e-commerce api." }) });
+
+app.use("/api/v1", authRouter);
 
 app.use(notFound);
 app.use(errorHandler);
