@@ -24,7 +24,7 @@ const port = config.APP_PORT || 5000;
 
 const start = async () => {
   try {
-    await connect();
+    await connect(config.MONGO_URI);
     app.listen(port, () => console.log(`Server running at http://localhost:${port}`))
   } catch (error) {
     throw new Error(error)
