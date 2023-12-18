@@ -5,8 +5,8 @@ const { notFoundError } = require("../customError");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const users = await User.
-    find()
-    .sort("createdAt")
+    find({ role: "user" })
+    .sort("-createdAt")
     .select("-__v -password")
 
   res.status(StatusCodes.OK).json({
