@@ -48,7 +48,11 @@ module.exports.login = tryCatchWrapper(async (req, res, next) => {
 
 module.exports.logout = (req, res) => {
   //clear cookie
-  res.cookie('refresh_token', '', {
-    httpOnly: true
-  }).send({ success: true });
+  res
+    .status(200)
+    .cookie('refresh_token', '', {
+      httpOnly: true,
+      expires: new Date(0)
+    })
+    .json({ success: true });
 }
