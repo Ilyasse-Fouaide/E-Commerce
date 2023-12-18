@@ -46,8 +46,12 @@ module.exports.login = tryCatchWrapper(async (req, res, next) => {
     return next(notFoundError("Invalid Credentials."))
   }
 
-  res.status(StatusCodes.OK).json({
-    success: true,
-    user
+  res.cookie("refresh_token", user.genToken(), {
+    httpOnly: true,
+    secure: true,
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24),  // 1 day same as JWT_LIFETIME
+    secure: config.NODE_ENV === "production"
   })
+
+  res.status(StatusCodes.OK).json({ success: true })
 });
