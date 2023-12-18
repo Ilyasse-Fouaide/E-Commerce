@@ -3,6 +3,7 @@ const isEmail = require('validator/lib/isEmail');
 const { badRequestError } = require('../customError');
 const tryCatchWrapper = require("../tryCatchWrapper");
 const User = require("../models/user.model");
+const config = require("../config");
 
 module.exports.register = tryCatchWrapper(async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -19,7 +20,8 @@ module.exports.register = tryCatchWrapper(async (req, res, next) => {
   res.cookie("refresh_token", user.genToken(), {
     httpOnly: true,
     secure: true,
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24)  // 1 day same as JWT_LIFETIME
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24),  // 1 day same as JWT_LIFETIME
+    secure: config.NODE_ENV === "production"
   })
 
   res.status(StatusCodes.OK).json({ success: true })
