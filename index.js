@@ -11,6 +11,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 // routes
 const authRouter = require("./routes/auth.router");
+// cookie parser package
+const cookieParser = require("cookie-parser")
 
 const app = express();
 
@@ -19,6 +21,7 @@ app.use(morgan("tiny"));
 app.use(cors({ origin: "*" }));
 app.use(xss());
 app.use(helmet());
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
