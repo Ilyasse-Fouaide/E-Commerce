@@ -1,8 +1,18 @@
 const { StatusCodes } = require("http-status-codes");
 const tryCatchWrapper = require("../tryCatchWrapper");
+const User = require("../models/user.model");
+const { notFoundError } = require("../customError");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
-  res.status(StatusCodes.OK).json({ success: true })
+  const users = await User.
+    find()
+    .sort("createdAt")
+    .select("-__v -password")
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    users
+  })
 });
 
 module.exports.store = tryCatchWrapper(async (req, res, next) => {
@@ -10,7 +20,15 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.show = tryCatchWrapper(async (req, res, next) => {
-  res.status(StatusCodes.OK).json({ success: true })
+  const { userId } = req.params;
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    return next(notFoundError("user not found."))
+  }
+
+  res.status(StatusCodes.OK).json({ success: true, user })
 });
 
 module.exports.update = tryCatchWrapper(async (req, res, next) => {

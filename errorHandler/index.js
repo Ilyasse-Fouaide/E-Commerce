@@ -25,6 +25,11 @@ const errorHandler = (err, req, res, next) => {
     error.error.message = `The email has already been taken.`;
   }
 
+  if (err.name && err.name === "CastError" && err.kind === "ObjectId") {
+    HttpStatusCode = StatusCodes.BAD_REQUEST;
+    error.error.status = HttpStatusCode;
+    error.error.message = `Please enter a valid userId`;
+  }
 
   res.status(HttpStatusCode).json(error)
 }

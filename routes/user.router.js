@@ -6,7 +6,7 @@ router.route("/")
   .get(authorized, user.index)
   .post(authorized, user.store);
 
-router.route("/:id")
+router.route("/:userId")
   .get(authorized, user.show)
   .patch(authorized, user.update)
   .delete(authorized, user.destroy);
