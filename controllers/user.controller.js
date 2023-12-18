@@ -22,7 +22,9 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
 module.exports.show = tryCatchWrapper(async (req, res, next) => {
   const { userId } = req.params;
 
-  const user = await User.findById(userId);
+  const user = await User
+    .findById(userId)
+    .select("-__v -password");
 
   if (!user) {
     return next(notFoundError("user not found."))
