@@ -33,6 +33,10 @@ userSchema.pre('save', function () {
   this.password = hashPass;
 });
 
+userSchema.methods.comparePassword = async function (givenPassword) {
+  return await bcrypt.compare(givenPassword, this.password);
+}
+
 userSchema.methods.genToken = function () {
   const token = jwt.sign({ userId: this._id, username: this.username }, config.JWT_SECRET, { expiresIn: config.JWT_LIFETIME })
   return token
