@@ -18,6 +18,7 @@ module.exports.register = tryCatchWrapper(async (req, res, next) => {
 
   res.cookie("refresh_token", user.genToken(), {
     httpOnly: true,
+    secure: true,
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24)  // 1 day same as JWT_LIFETIME
   })
 
