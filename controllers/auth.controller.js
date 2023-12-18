@@ -1,9 +1,11 @@
-const { StatusCodes } = require("http-status-codes");
+const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const isEmail = require('validator/lib/isEmail');
-const { badRequestError, notFoundError } = require('../customError');
+const jwt = require("jsonwebtoken");
+const { badRequestError, notFoundError, unauthorizedError } = require('../customError');
 const tryCatchWrapper = require("../tryCatchWrapper");
 const User = require("../models/user.model");
 const { setCookie } = require("../utils");
+const config = require("../config");
 
 module.exports.register = tryCatchWrapper(async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -56,3 +58,22 @@ module.exports.logout = (req, res) => {
     })
     .json({ success: true });
 }
+
+module.exports.profile = tryCatchWrapper(async (req, res, next) => {
+  const { refresh_token } = req.cookies;
+
+  if (!refresh_token) {
+    next(unauthorizedError(ReasonPhrases.UNAUTHORIZED))
+  }
+
+  jwt.verify(refresh_token, config.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      next(unauthorizedError(ReasonPhrases.UNAUTHORIZED))
+    }
+    res.status(StatusCodes.OK).json({
+      success: true,
+      decoded
+    })
+  })
+
+});
