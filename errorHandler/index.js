@@ -22,7 +22,7 @@ const errorHandler = (err, req, res, next) => {
   if (err.code && err.code === 11000) {
     HttpStatusCode = StatusCodes.BAD_REQUEST;
     error.error.status = HttpStatusCode;
-    error.error.message = `Email already taken.`;
+    error.error.message = `The email has already been taken.`;
   }
 
 
