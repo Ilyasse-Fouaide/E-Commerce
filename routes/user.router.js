@@ -8,7 +8,7 @@ router.route("/")
   .post(authorized, user.store);
 
 router.route("/:userId")
-  .get(authorized, authorizedPermissions("admin", "seller"), user.show)
+  .get(authorized, authorizedPermissions("admin"), user.show)
   .patch(authorized, user.update)
   .delete(authorized, user.destroy);
 
