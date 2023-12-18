@@ -7,12 +7,12 @@ const authorized = (req, res, next) => {
   const { refresh_token } = req.cookies;
 
   if (!refresh_token) {
-    next(unauthorizedError(ReasonPhrases.UNAUTHORIZED))
+    return next(unauthorizedError(ReasonPhrases.UNAUTHORIZED))
   }
 
   jwt.verify(refresh_token, config.JWT_SECRET, (err, decoded) => {
     if (err) {
-      next(unauthorizedError(ReasonPhrases.UNAUTHORIZED))
+      return next(unauthorizedError(ReasonPhrases.UNAUTHORIZED))
     }
 
     const user = {
