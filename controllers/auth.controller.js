@@ -11,7 +11,10 @@ module.exports.register = tryCatchWrapper(async (req, res, next) => {
     return next(badRequestError("Please fill valid email."))
   }
 
-  const user = await User.create({ username, email, password });
+  const count = await User.countDocuments({});
+  const role = count === 0 ? 'admin' : 'user'
+
+  const user = await User.create({ username, email, password, role });
 
   res.status(StatusCodes.OK).json({
     success: true,
