@@ -11,6 +11,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 // routes
 const authRouter = require("./routes/auth.router");
+const userRouter = require("./routes/user.router");
 // cookie parser package
 const cookieParser = require("cookie-parser")
 
@@ -31,7 +32,8 @@ app.get('/', (req, res) => {
   })
 });
 
-app.use("/api/v1", authRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", userRouter);
 
 app.use(notFound);
 app.use(errorHandler);
