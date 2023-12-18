@@ -18,6 +18,7 @@ const authorized = (req, res, next) => {
     const user = {
       userId: decoded.userId,
       username: decoded.username,
+      role: decoded.role
     }
 
     req.user = user;

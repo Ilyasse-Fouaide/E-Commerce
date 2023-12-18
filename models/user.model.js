@@ -38,7 +38,7 @@ userSchema.methods.comparePassword = async function (givenPassword, password) {
 }
 
 userSchema.methods.genToken = function () {
-  const token = jwt.sign({ userId: this._id, username: this.username }, config.JWT_SECRET, { expiresIn: config.JWT_LIFETIME })
+  const token = jwt.sign({ userId: this._id, username: this.username, role: this.role }, config.JWT_SECRET, { expiresIn: config.JWT_LIFETIME })
   return token
 }
 
