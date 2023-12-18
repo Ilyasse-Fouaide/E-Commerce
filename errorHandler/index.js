@@ -7,7 +7,7 @@ const errorHandler = (err, req, res, next) => {
     success: false,
     error: {
       status: HttpStatusCode,
-      message: err || ReasonPhrases.INTERNAL_SERVER_ERROR
+      message: err.message || ReasonPhrases.INTERNAL_SERVER_ERROR
     }
   }
 
