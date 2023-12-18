@@ -15,6 +15,10 @@ const unauthorizedError = (message) => {
   return new CustomError(message, StatusCodes.UNAUTHORIZED)
 }
 
+const forbiddenError = (message) => {
+  return new CustomError(message, StatusCodes.FORBIDDEN)
+}
+
 const notFoundError = (message) => {
   return new CustomError(message, StatusCodes.NOT_FOUND)
 }
@@ -22,5 +26,6 @@ const notFoundError = (message) => {
 module.exports = {
   badRequestError,
   unauthorizedError,
+  forbiddenError,
   notFoundError
 }
