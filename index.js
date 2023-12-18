@@ -25,7 +25,11 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => { res.status(200).json({ message: "Hello to e-commerce api." }) });
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: "Hello to e-commerce api."
+  })
+});
 
 app.use("/api/v1", authRouter);
 
