@@ -49,10 +49,10 @@ module.exports.login = tryCatchWrapper(async (req, res, next) => {
 module.exports.logout = (req, res) => {
   //clear cookie
   res
-    .status(200)
+    .status(StatusCodes.OK)
     .cookie('refresh_token', '', {
       httpOnly: true,
-      expires: new Date(0)
+      expires: new Date(Date.now())  // expires now
     })
     .json({ success: true });
 }
