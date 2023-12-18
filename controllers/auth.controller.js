@@ -29,6 +29,10 @@ module.exports.login = tryCatchWrapper(async (req, res, next) => {
     return next(badRequestError('`email` or `password` required'))
   }
 
+  if (!isEmail(email)) {
+    return next(badRequestError("Please fill valid email."))
+  }
+
   const user = await User.findOne({ email });
 
   if (!user) {
