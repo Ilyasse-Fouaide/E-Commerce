@@ -16,11 +16,12 @@ module.exports.register = tryCatchWrapper(async (req, res, next) => {
 
   const user = await User.create({ username, email, password, role });
 
-  res.status(StatusCodes.OK).json({
-    success: true,
-    message: "User registered successfully.",
-    token: user.genToken()
+  res.cookie("refresh_token", user.genToken(), {
+    httpOnly: true,
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24)  // 1 day same as JWT_LIFETIME
   })
+
+  res.status(StatusCodes.OK).json({ success: true })
 });
 
 module.exports.login = tryCatchWrapper(async (req, res, next) => {
