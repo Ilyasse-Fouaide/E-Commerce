@@ -3,7 +3,6 @@ const isEmail = require('validator/lib/isEmail');
 const { badRequestError, notFoundError } = require('../customError');
 const tryCatchWrapper = require("../tryCatchWrapper");
 const User = require("../models/user.model");
-const config = require("../config");
 const { setCookie } = require("../utils");
 
 module.exports.register = tryCatchWrapper(async (req, res, next) => {
@@ -46,3 +45,10 @@ module.exports.login = tryCatchWrapper(async (req, res, next) => {
 
   res.status(StatusCodes.OK).json({ success: true })
 });
+
+module.exports.logout = (req, res) => {
+  //clear cookie
+  res.cookie('refresh_token', '', {
+    httpOnly: true
+  }).send({ success: true });
+}
