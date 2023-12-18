@@ -33,8 +33,8 @@ userSchema.pre('save', function () {
   this.password = hashPass;
 });
 
-userSchema.methods.comparePassword = async function (givenPassword) {
-  return await bcrypt.compare(givenPassword, this.password);
+userSchema.methods.comparePassword = async function (givenPassword, password) {
+  return await bcrypt.compare(givenPassword, password);
 }
 
 userSchema.methods.genToken = function () {

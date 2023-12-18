@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const isEmail = require('validator/lib/isEmail');
-const { badRequestError } = require('../customError');
+const { badRequestError, notFoundError } = require('../customError');
 const tryCatchWrapper = require("../tryCatchWrapper");
 const User = require("../models/user.model");
 const config = require("../config");
@@ -28,5 +28,26 @@ module.exports.register = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.login = tryCatchWrapper(async (req, res, next) => {
-  res.status(StatusCodes.OK).json({ message: "login" })
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return next(badRequestError('`email` or `password` required'))
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return next(notFoundError("Invalid Credentials."))
+  }
+
+  const validPassword = await user.comparePassword(password, user.password);
+
+  if (!validPassword) {
+    return next(notFoundError("Invalid Credentials."))
+  }
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    user
+  })
 });
