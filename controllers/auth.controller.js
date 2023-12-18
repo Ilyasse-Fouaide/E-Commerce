@@ -13,7 +13,11 @@ module.exports.register = tryCatchWrapper(async (req, res, next) => {
 
   const user = await User.create({ username, email, password });
 
-  res.status(StatusCodes.OK).json({ message: "register" })
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: "User registered successfully.",
+    token: user.genToken()
+  })
 });
 
 module.exports.login = tryCatchWrapper(async (req, res, next) => {
