@@ -14,7 +14,9 @@ const authRouter = require("./routes/auth.router");
 const userRouter = require("./routes/user.router");
 const productRouter = require("./routes/product.router");
 // cookie parser package
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
+// file upload package
+const fileUpload = require("express-fileupload");
 
 const app = express();
 
@@ -27,6 +29,8 @@ app.use(cookieParser());
 app.use(express.static("./public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+// parsing multipart/form-data
+app.use(fileUpload());
 
 app.get('/', (req, res) => {
   res.status(200).json({
