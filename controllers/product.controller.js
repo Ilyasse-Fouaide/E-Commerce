@@ -3,6 +3,10 @@ const Product = require("../models/product.model");
 const tryCatchWrapper = require("../tryCatchWrapper");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
+  res.status(StatusCodes.OK).json({ success: true })
+});
+
+module.exports.store = tryCatchWrapper(async (req, res, next) => {
   const {
     name,
     price,
@@ -32,10 +36,6 @@ module.exports.index = tryCatchWrapper(async (req, res, next) => {
 
   await product.save();
 
-  res.status(StatusCodes.OK).json({ success: true })
-});
-
-module.exports.store = tryCatchWrapper(async (req, res, next) => {
   res.status(StatusCodes.CREATED).json({ success: true })
 });
 
