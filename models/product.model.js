@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "users"
   }
-});
+}, { timestamps: true });
 
 const Product = mongoose.model("users", productSchema);
 
