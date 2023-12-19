@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const tryCatchWrapper = require("../tryCatchWrapper");
 const User = require("../models/user.model");
 const { notFoundError, badRequestError } = require("../customError");
+const { setCookie } = require("../utils");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const users = await User.
@@ -35,6 +36,21 @@ module.exports.show = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.update = tryCatchWrapper(async (req, res, next) => {
+  const { username, email } = req.body;
+  const { userId } = req.params
+
+  if (!email || !username) {
+    return next(badRequestError('`email` or `username` required'))
+  }
+
+  const user = await User.findByIdAndUpdate(
+    userId,
+    { username, email },
+    { new: true }
+  );
+
+  setCookie(res, user.genToken());
+
   res.status(StatusCodes.OK).json({ success: true })
 });
 
