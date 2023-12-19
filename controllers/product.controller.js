@@ -3,6 +3,36 @@ const Product = require("../models/product.model");
 const tryCatchWrapper = require("../tryCatchWrapper");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
+  const {
+    name,
+    price,
+    description,
+    image,
+    category,
+    company,
+    colors,
+    featured,
+    freeShipping,
+    averageRating,
+    user,
+  } = req.body;
+
+  const product = await new Product();
+
+  product.name = name
+  product.price = price
+  product.description = description
+  product.image = image
+  product.category = category
+  product.company = company
+  product.colors = colors
+  product.featured = featured
+  product.freeShipping = freeShipping
+  product.averageRating = averageRating
+  product.user = user
+
+  await product.save();
+
   res.status(StatusCodes.OK).json({ success: true })
 });
 
