@@ -12,4 +12,7 @@ router.route("/:productId")
   .patch(authorized, authorizedPermissions("admin"), product.update)
   .delete(authorized, authorizedPermissions("admin"), product.destroy);
 
+router.route("/uploadImage")
+  .post(authorized, authorizedPermissions("admin"), product.upload)
+
 module.exports = router
