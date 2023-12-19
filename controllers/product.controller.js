@@ -13,8 +13,7 @@ module.exports.index = tryCatchWrapper(async (req, res, next) => {
     colors,
     featured,
     freeShipping,
-    averageRating,
-    user,
+    averageRating
   } = req.body;
 
   const product = new Product();
@@ -29,7 +28,7 @@ module.exports.index = tryCatchWrapper(async (req, res, next) => {
   product.featured = featured
   product.freeShipping = freeShipping
   product.averageRating = averageRating
-  product.user = user
+  product.user = req.user.userId
 
   await product.save();
 
