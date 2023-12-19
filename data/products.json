@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Office Chair",
+    "price": 150,
+    "description": "Ergonomic chair for office use",
+    "image": "/upload/images/office-chair.jpg",
+    "category": "office",
+    "company": "ikea",
+    "colors": ["black", "blue"]
+  },
+  {
+    "name": "Kitchen Mixer",
+    "price": 90,
+    "description": "High-quality mixer for kitchen use",
+    "image": "/upload/images/kitchen-mixer.jpg",
+    "category": "kitchen",
+    "company": "liddy",
+    "colors": ["silver", "red"]
+  },
+  {
+    "name": "Bedroom Nightstand",
+    "price": 120,
+    "description": "Modern nightstand for bedrooms",
+    "image": "/upload/images/nightstand.jpg",
+    "category": "bedroom",
+    "company": "marcos",
+    "colors": ["white", "brown"]
+  },
+  {
+    "name": "Office Desk",
+    "price": 250,
+    "description": "Spacious desk with multiple compartments",
+    "image": "/upload/images/office-desk.jpg",
+    "category": "office",
+    "company": "ikea",
+    "colors": ["brown", "gray"]
+  },
+  {
+    "name": "Kitchen Knife Set",
+    "price": 60,
+    "description": "Premium stainless steel knife set for chefs",
+    "image": "/upload/images/knife-set.jpg",
+    "category": "kitchen",
+    "company": "liddy",
+    "colors": ["silver", "black"]
+  },
+  {
+    "name": "Bedroom Dresser",
+    "price": 180,
+    "description": "Elegant dresser with mirror for bedrooms",
+    "image": "/upload/images/dresser.jpg",
+    "category": "bedroom",
+    "company": "marcos",
+    "colors": ["white", "oak"]
+  },
+  {
+    "name": "Office Bookshelf",
+    "price": 180,
+    "description": "Sturdy bookshelf with adjustable shelves",
+    "image": "/upload/images/office-bookshelf.jpg",
+    "category": "office",
+    "company": "ikea",
+    "colors": ["white", "black"]
+  },
+  {
+    "name": "Kitchen Blender",
+    "price": 80,
+    "description": "Powerful blender for smoothies and shakes",
+    "image": "/upload/images/kitchen-blender.jpg",
+    "category": "kitchen",
+    "company": "liddy",
+    "colors": ["red", "silver"]
+  },
+  {
+    "name": "Bedroom Ottoman",
+    "price": 95,
+    "description": "Comfortable ottoman for bedroom relaxation",
+    "image": "/upload/images/bedroom-ottoman.jpg",
+    "category": "bedroom",
+    "company": "marcos",
+    "colors": ["blue", "gray"]
+  }
+]
