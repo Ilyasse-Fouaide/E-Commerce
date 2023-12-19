@@ -51,7 +51,7 @@ module.exports.updatePassword = tryCatchWrapper(async (req, res, next) => {
   const isMatch = await user.comparePassword(oldPassword, user.password);
 
   if (!isMatch) {
-    next(badRequestError("Your old password is wrong."))
+    return next(badRequestError("Your old password is wrong."))
   }
 
   user.password = newPassword;
