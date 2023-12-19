@@ -4,13 +4,13 @@ const authorized = require("../middlewares/authorized");
 const authorizedPermissions = require("../middlewares/authorizedPermissions");
 
 router.route("/")
-  .get(authorized, user.index)
+  .get(authorized, authorizedPermissions("admin"), user.index)
   .post(authorized, user.store);
 
 router.route("/update-password").patch(authorized, user.updatePassword);
 
 router.route("/:userId")
-  .get(authorized, authorizedPermissions("admin"), user.show)
+  .get(authorized, user.show)
   .patch(authorized, user.update)
   .delete(authorized, user.destroy);
 
