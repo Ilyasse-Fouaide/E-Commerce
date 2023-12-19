@@ -23,6 +23,7 @@ app.use(cors({ origin: "*" }));
 app.use(xss());
 app.use(helmet());
 app.use(cookieParser());
+app.use(express.static("./public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
