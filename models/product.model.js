@@ -23,8 +23,22 @@ const productSchema = new mongoose.Schema({
     required: false,
     default: "/upload/images/default.jpg"
   },
-  category: String,
-  company: String,
+  category: {
+    type: String,
+    required: true,
+    enum: {
+      values: ['office', 'kitchen', 'bedroom'],
+      message: '{VALUE} is not supported'
+    }
+  },
+  company: {
+    type: String,
+    required: true,
+    enum: {
+      values: ['ikea', 'liddy', 'marcos'],
+      message: '{VALUE} is not supported'
+    }
+  },
   colors: [{
     type: String,
   }],
