@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 userSchema.pre('save', function () {
+  // if the password not changing do nothing
+  if (!this.isModified("password")) return;
+
+  // else : hash my password
   const salt = bcrypt.genSaltSync(8);
   const hashPass = bcrypt.hashSync(this.password, salt);
   this.password = hashPass;
