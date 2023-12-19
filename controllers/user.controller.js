@@ -1,8 +1,7 @@
-const { StatusCodes } = require("http-status-codes");
-const bcrypt = require("bcryptjs");
+const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const tryCatchWrapper = require("../tryCatchWrapper");
 const User = require("../models/user.model");
-const { notFoundError, badRequestError } = require("../customError");
+const { notFoundError, badRequestError, forbiddenError } = require("../customError");
 const { setCookie, canViewProfile } = require("../utils");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
@@ -35,7 +34,7 @@ module.exports.show = tryCatchWrapper(async (req, res, next) => {
   const iHaveAccess = canViewProfile(req, user._id);
 
   if (!iHaveAccess) {
-    return next(badRequestError("forbidden"))
+    return next(forbiddenError(`403-${ReasonPhrases.FORBIDDEN}`))
   }
 
   res.status(StatusCodes.OK).json({ success: true, user })
