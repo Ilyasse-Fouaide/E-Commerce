@@ -17,7 +17,7 @@ module.exports.index = tryCatchWrapper(async (req, res, next) => {
     user,
   } = req.body;
 
-  const product = await new Product();
+  const product = new Product();
 
   product.name = name
   product.price = price
