@@ -12,6 +12,7 @@ const morgan = require("morgan");
 // routes
 const authRouter = require("./routes/auth.router");
 const userRouter = require("./routes/user.router");
+const productRouter = require("./routes/product.router");
 // cookie parser package
 const cookieParser = require("cookie-parser")
 
@@ -35,6 +36,7 @@ app.get('/', (req, res) => {
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/products", productRouter);
 
 app.use(notFound);
 app.use(errorHandler);
