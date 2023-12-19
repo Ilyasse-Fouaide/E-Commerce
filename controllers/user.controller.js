@@ -43,11 +43,12 @@ module.exports.update = tryCatchWrapper(async (req, res, next) => {
     return next(badRequestError('`email` or `username` required'))
   }
 
-  const user = await User.findByIdAndUpdate(
-    userId,
-    { username, email },
-    { new: true }
-  );
+  const user = await User.findById(userId);
+
+  user.username = username;
+  user.email = email;
+
+  await user.save();
 
   setCookie(res, user.genToken());
 
