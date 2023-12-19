@@ -3,7 +3,7 @@
     "name": "Office Chair",
     "price": 150,
     "description": "Ergonomic chair for office use",
-    "image": "/upload/images/office-chair.jpg",
+    "image": "https://www.ikea.com/ma/en/images/products/hattefjaell-office-chair-with-armrests-gunnared-medium-grey-white__1019093_pe831300_s5.jpg?f=xxs",
     "category": "office",
     "company": "ikea",
     "colors": ["black", "blue"]
@@ -12,7 +12,7 @@
     "name": "Kitchen Mixer",
     "price": 90,
     "description": "High-quality mixer for kitchen use",
-    "image": "/upload/images/kitchen-mixer.jpg",
+    "image": "https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/61wzXuHCb1L._AC_SL1001_.jpg",
     "category": "kitchen",
     "company": "liddy",
     "colors": ["silver", "red"]
@@ -21,7 +21,7 @@
     "name": "Bedroom Nightstand",
     "price": 120,
     "description": "Modern nightstand for bedrooms",
-    "image": "/upload/images/nightstand.jpg",
+    "image": "https://assets.wfcdn.com/im/56137321/resize-h500-w500%5Ecompr-r85/2508/250861413/Travison+Nightstands+with+Charging+Station%2C+MDF+Bedside+Table+with+3+Drawers%2C+15.75X15.35X26.38%22+%28Set+of+2%29.jpg",
     "category": "bedroom",
     "company": "marcos",
     "colors": ["white", "brown"]
@@ -30,7 +30,7 @@
     "name": "Office Desk",
     "price": 250,
     "description": "Spacious desk with multiple compartments",
-    "image": "/upload/images/office-desk.jpg",
+    "image": "https://www.ikea.com/us/en/images/products/lagkapten-alex-desk-white__1022432_pe832720_s5.jpg?f=xxs",
     "category": "office",
     "company": "ikea",
     "colors": ["brown", "gray"]
@@ -39,7 +39,7 @@
     "name": "Kitchen Knife Set",
     "price": 60,
     "description": "Premium stainless steel knife set for chefs",
-    "image": "/upload/images/knife-set.jpg",
+    "image": "https://media-production.procook.io/dbf23580d1e7a5a8761566a3f16f85a7.jpg",
     "category": "kitchen",
     "company": "liddy",
     "colors": ["silver", "black"]
@@ -48,7 +48,7 @@
     "name": "Bedroom Dresser",
     "price": 180,
     "description": "Elegant dresser with mirror for bedrooms",
-    "image": "/upload/images/dresser.jpg",
+    "image": "https://www.ikea.com/us/en/images/products/hemnes-8-drawer-dresser-black-brown__0627349_pe693302_s5.jpg?f=xxs",
     "category": "bedroom",
     "company": "marcos",
     "colors": ["white", "oak"]
@@ -57,7 +57,7 @@
     "name": "Office Bookshelf",
     "price": 180,
     "description": "Sturdy bookshelf with adjustable shelves",
-    "image": "/upload/images/office-bookshelf.jpg",
+    "image": "https://www.ikea.com/us/en/images/products/idasen-shelf-unit-dark-gray__1020166_pe831816_s5.jpg?f=xxs",
     "category": "office",
     "company": "ikea",
     "colors": ["white", "black"]
@@ -66,7 +66,7 @@
     "name": "Kitchen Blender",
     "price": 80,
     "description": "Powerful blender for smoothies and shakes",
-    "image": "/upload/images/kitchen-blender.jpg",
+    "image": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1689622753-81-f3EpuvGL.jpg?crop=1xw:1.00xh;center,top&resize=980:*",
     "category": "kitchen",
     "company": "liddy",
     "colors": ["red", "silver"]
@@ -75,7 +75,7 @@
     "name": "Bedroom Ottoman",
     "price": 95,
     "description": "Comfortable ottoman for bedroom relaxation",
-    "image": "/upload/images/bedroom-ottoman.jpg",
+    "image": "https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/71F-nFuzLnL._AC_UL320_.jpg",
     "category": "bedroom",
     "company": "marcos",
     "colors": ["blue", "gray"]
