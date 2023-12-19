@@ -19,7 +19,7 @@ module.exports.register = tryCatchWrapper(async (req, res, next) => {
 
   setCookie(res, user.genToken());
 
-  res.status(StatusCodes.OK).json({ success: true })
+  res.status(StatusCodes.CREATED).json({ success: true })
 });
 
 module.exports.login = tryCatchWrapper(async (req, res, next) => {
