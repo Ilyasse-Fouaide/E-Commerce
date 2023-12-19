@@ -7,6 +7,8 @@ router.route("/")
   .get(authorized, user.index)
   .post(authorized, user.store);
 
+router.route("/update-password").patch(authorized, user.updatePassword);
+
 router.route("/:userId")
   .get(authorized, authorizedPermissions("admin"), user.show)
   .patch(authorized, user.update)

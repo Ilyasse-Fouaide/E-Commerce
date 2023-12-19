@@ -1,7 +1,8 @@
 const { StatusCodes } = require("http-status-codes");
+const bcrypt = require("bcryptjs");
 const tryCatchWrapper = require("../tryCatchWrapper");
 const User = require("../models/user.model");
-const { notFoundError } = require("../customError");
+const { notFoundError, badRequestError } = require("../customError");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const users = await User.
@@ -34,6 +35,28 @@ module.exports.show = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.update = tryCatchWrapper(async (req, res, next) => {
+  res.status(StatusCodes.OK).json({ success: true })
+});
+
+module.exports.updatePassword = tryCatchWrapper(async (req, res, next) => {
+  const { oldPassword, newPassword } = req.body;
+  const { userId } = req.user
+
+  if (!oldPassword || !newPassword) {
+    return next(badRequestError("Please fill your empty fields."))
+  }
+
+  const user = await User.findById(userId);
+
+  const isMatch = await user.comparePassword(oldPassword, user.password);
+
+  if (!isMatch) {
+    next(badRequestError("Your old password is wrong."))
+  }
+
+  user.password = newPassword;
+  await user.save();
+
   res.status(StatusCodes.OK).json({ success: true })
 });
 
