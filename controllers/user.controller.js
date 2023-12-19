@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const tryCatchWrapper = require("../tryCatchWrapper");
 const User = require("../models/user.model");
 const { notFoundError, badRequestError } = require("../customError");
-const { setCookie } = require("../utils");
+const { setCookie, canViewProfile } = require("../utils");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const users = await User.
@@ -30,6 +30,12 @@ module.exports.show = tryCatchWrapper(async (req, res, next) => {
 
   if (!user) {
     return next(notFoundError("user not found."))
+  }
+
+  const iHaveAccess = canViewProfile(req, user._id);
+
+  if (!iHaveAccess) {
+    return next(badRequestError("forbidden"))
   }
 
   res.status(StatusCodes.OK).json({ success: true, user })
