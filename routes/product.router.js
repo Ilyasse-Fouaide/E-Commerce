@@ -5,11 +5,11 @@ const authorizedPermissions = require("../middlewares/authorizedPermissions");
 
 router.route("/")
   .get(product.index)
-  .post(authorized, product.store);
+  .post(authorized, authorizedPermissions("admin"), product.store);
 
 router.route("/:productId")
   .get(product.show)
-  .patch(authorized, product.update)
-  .delete(authorized, product.destroy);
+  .patch(authorized, authorizedPermissions("admin"), product.update)
+  .delete(authorized, authorizedPermissions("admin"), product.destroy);
 
 module.exports = router
