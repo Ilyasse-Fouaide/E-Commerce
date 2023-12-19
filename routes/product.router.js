@@ -7,12 +7,12 @@ router.route("/")
   .get(product.index)
   .post(authorized, authorizedPermissions("admin"), product.store);
 
+router.route("/uploadImage")
+  .post(authorized, authorizedPermissions("admin"), product.upload)
+
 router.route("/:productId")
   .get(product.show)
   .patch(authorized, authorizedPermissions("admin"), product.update)
   .delete(authorized, authorizedPermissions("admin"), product.destroy);
-
-router.route("/uploadImage")
-  .post(authorized, authorizedPermissions("admin"), product.upload)
 
 module.exports = router
