@@ -73,5 +73,13 @@ module.exports.update = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.destroy = tryCatchWrapper(async (req, res, next) => {
+  const { reviewId } = req.params;
+
+  const review = await Review.findByIdAndDelete(reviewId);
+
+  if (!review) {
+    return next(notFoundError("no review found."))
+  }
+
   res.status(StatusCodes.OK).json({ success: true })
 });
