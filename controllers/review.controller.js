@@ -1,8 +1,9 @@
-const { StatusCodes } = require("http-status-codes");
+const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const tryCatchWrapper = require("../tryCatchWrapper");
 const Review = require("../models/review.model");
 const Product = require("../models/product.model");
-const { notFoundError, badRequestError } = require("../customError");
+const { notFoundError, badRequestError, forbiddenError } = require("../customError");
+const { canIDeleteReview } = require("../utils");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const limit = req.query.limit || 5
@@ -75,11 +76,19 @@ module.exports.update = tryCatchWrapper(async (req, res, next) => {
 module.exports.destroy = tryCatchWrapper(async (req, res, next) => {
   const { reviewId } = req.params;
 
-  const review = await Review.findByIdAndDelete(reviewId);
+  const review = await Review.findById(reviewId);
 
   if (!review) {
     return next(notFoundError("no review found."))
   }
+
+  const iHaveAccess = canIDeleteReview(req, review.user);
+
+  if (!iHaveAccess) {
+    return next(forbiddenError(`403-${ReasonPhrases.FORBIDDEN}`))
+  }
+
+  await Review.findByIdAndDelete(reviewId);
 
   res.status(StatusCodes.OK).json({ success: true })
 });
