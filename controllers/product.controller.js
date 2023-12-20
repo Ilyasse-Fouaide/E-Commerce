@@ -116,7 +116,10 @@ module.exports.upload = tryCatchWrapper(async (req, res, next) => {
   }
 
   const image = req.files.image;
-  const uploadPath = path.join(__dirname, "../", "public", "/upload", "/images", image.name);
+  const uploadPath = path.join(
+    __dirname, "../", "public", "/upload", "/images",
+    Date.now() + "." + image.mimetype.split("/")[1]
+  );
 
   if (image.size > 500000) {  // 500kb
     return next(badRequestError("Image size exceeds the limit of 500kb"))
