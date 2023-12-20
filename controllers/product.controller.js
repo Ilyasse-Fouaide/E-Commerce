@@ -60,6 +60,38 @@ module.exports.show = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.update = tryCatchWrapper(async (req, res, next) => {
+  const { productId } = req.params;
+  const {
+    name,
+    price,
+    description,
+    image,
+    category,
+    company,
+    colors,
+    featured,
+    freeShipping,
+    averageRating
+  } = req.body;
+
+  const product = await Product.findById(productId);
+
+  if (!product) {
+    return next(notFoundError("no product found."))
+  }
+
+  product.name = name;
+  product.price = price;
+  product.description = description;
+  product.image = image;
+  product.category = category;
+  product.company = company;
+  product.colors = colors;
+  product.featured = featured;
+  product.freeShipping = freeShipping;
+
+  await product.save()
+
   res.status(StatusCodes.OK).json({ success: true })
 });
 
