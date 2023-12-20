@@ -116,9 +116,11 @@ module.exports.upload = tryCatchWrapper(async (req, res, next) => {
   }
 
   const image = req.files.image;
+  const imageName = Date.now() + "." + image.mimetype.split("/")[1]
+
   const uploadPath = path.join(
     __dirname, "../", "public", "/upload", "/images",
-    Date.now() + "." + image.mimetype.split("/")[1]
+    imageName
   );
 
   const maxSize = 1024 * 500;
@@ -135,6 +137,9 @@ module.exports.upload = tryCatchWrapper(async (req, res, next) => {
     if (err) {
       return next(err);
     }
-    res.status(StatusCodes.OK).json({ success: true, image: image.name })
+    res.status(StatusCodes.OK).json({
+      success: true,
+      image: `public/upload/images/${imageName}`
+    })
   })
 });
