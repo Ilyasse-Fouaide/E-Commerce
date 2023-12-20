@@ -5,14 +5,18 @@ const Product = require("../models/product.model");
 const { notFoundError, badRequestError } = require("../customError");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
+  const limit = req.query.limit || 5
+
   const reviews = await Review
     .find()
     .sort("-createdAt")
+    .limit(limit)
     .select("-__v");
 
   res.status(StatusCodes.OK).json({
     success: true,
     count: reviews.length,
+    limit,
     reviews
   })
 });
