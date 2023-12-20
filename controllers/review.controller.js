@@ -11,7 +11,10 @@ module.exports.index = tryCatchWrapper(async (req, res, next) => {
     .find()
     .sort("-createdAt")
     .limit(limit)
-    .select("-__v");
+    .select("-__v")
+    .populate([
+      { path: "user", select: "_id username" }
+    ]);
 
   res.status(StatusCodes.OK).json({
     success: true,
