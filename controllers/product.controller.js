@@ -20,23 +20,21 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
     averageRating
   } = req.body;
 
-  const product = new Product();
+  const product = await Product.create({
+    name,
+    price,
+    description,
+    image,
+    category,
+    company,
+    colors,
+    featured,
+    freeShipping,
+    averageRating,
+    user: req.user.userId
+  });
 
-  product.name = name
-  product.price = price
-  product.description = description
-  product.image = image
-  product.category = category
-  product.company = company
-  product.colors = colors
-  product.featured = featured
-  product.freeShipping = freeShipping
-  product.averageRating = averageRating
-  product.user = req.user.userId
-
-  await product.save();
-
-  res.status(StatusCodes.CREATED).json({ success: true })
+  res.status(StatusCodes.CREATED).json({ success: true, product })
 });
 
 module.exports.show = tryCatchWrapper(async (req, res, next) => {
