@@ -7,7 +7,10 @@ module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const products = await Product
     .find()
     .sort("-createdAt")
-    .limit(25);
+    .limit(25)
+    .populate(
+      { path: "user", select: "_id username" }
+    );
 
   res.status(StatusCodes.OK).json({
     success: true,
@@ -30,7 +33,7 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
     averageRating
   } = req.body;
 
-  const product = await Product.create({
+  await Product.create({
     name,
     price,
     description,
