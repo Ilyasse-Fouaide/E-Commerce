@@ -7,7 +7,7 @@ module.exports.index = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.store = tryCatchWrapper(async (req, res, next) => {
-  res.status(StatusCodes.OK).json({ success: true })
+  res.status(StatusCodes.CREATED).json({ success: true })
 });
 
 module.exports.show = tryCatchWrapper(async (req, res, next) => {
