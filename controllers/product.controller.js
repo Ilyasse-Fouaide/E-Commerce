@@ -8,7 +8,11 @@ module.exports.index = tryCatchWrapper(async (req, res, next) => {
     .sort("-createdAt")
     .limit(25);
 
-  res.status(StatusCodes.OK).json({ success: true, products })
+  res.status(StatusCodes.OK).json({
+    success: true,
+    count: products.length,
+    products
+  })
 });
 
 module.exports.store = tryCatchWrapper(async (req, res, next) => {
