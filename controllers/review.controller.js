@@ -88,8 +88,7 @@ module.exports.update = tryCatchWrapper(async (req, res, next) => {
 
   review.rating = rating;
   review.title = title;
-  review.review = rev;
-  review.product = product;
+  review.review = rev
 
   await review.save();
 
