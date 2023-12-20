@@ -3,7 +3,12 @@ const Product = require("../models/product.model");
 const tryCatchWrapper = require("../tryCatchWrapper");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
-  res.status(StatusCodes.OK).json({ success: true })
+  const products = await Product
+    .find()
+    .sort("-createdAt")
+    .limit(25);
+
+  res.status(StatusCodes.OK).json({ success: true, products })
 });
 
 module.exports.store = tryCatchWrapper(async (req, res, next) => {
