@@ -9,12 +9,12 @@ module.exports.index = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.store = tryCatchWrapper(async (req, res, next) => {
-  const { rating, title, review, productId } = req.body;
+  const { rating, title, review, product: productId } = req.body;
   const { userId } = req.user;
 
   const product = await Product.findById(productId);
 
-  if (product) {
+  if (!product) {
     return next(notFoundError("no product found."))
   }
 
@@ -29,7 +29,7 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
     title,
     review,
     user: userId,
-    productId
+    product: productId
   });
 
   res.status(StatusCodes.CREATED).json({ success: true })
