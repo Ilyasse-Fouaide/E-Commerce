@@ -28,7 +28,7 @@ const errorHandler = (err, req, res, next) => {
   if (err.name && err.name === "CastError" && err.kind === "ObjectId") {
     HttpStatusCode = StatusCodes.BAD_REQUEST;
     error.error.status = HttpStatusCode;
-    error.error.message = `Please enter a valid userId`;
+    error.error.message = `Please enter a valid _id`;
   }
 
   res.status(HttpStatusCode).json(error)
