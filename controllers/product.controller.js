@@ -135,6 +135,6 @@ module.exports.upload = tryCatchWrapper(async (req, res, next) => {
     if (err) {
       return next(err);
     }
-    res.status(StatusCodes.OK).json({ success: true })
+    res.status(StatusCodes.OK).json({ success: true, image: image.name })
   })
 });
