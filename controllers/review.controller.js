@@ -3,7 +3,7 @@ const tryCatchWrapper = require("../tryCatchWrapper");
 const Review = require("../models/review.model");
 const Product = require("../models/product.model");
 const { notFoundError, badRequestError, forbiddenError } = require("../customError");
-const { canIDeleteReview } = require("../utils");
+const { canIDeleteReview, canIUpdateReview } = require("../utils");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const limit = req.query.limit || 5
@@ -78,6 +78,13 @@ module.exports.update = tryCatchWrapper(async (req, res, next) => {
   if (!review) {
     return next(notFoundError("no review found."))
   }
+
+  const iHaveAccess = canIUpdateReview(req, review.user);
+
+  if (!iHaveAccess) {
+    return next(forbiddenError(`403-${ReasonPhrases.FORBIDDEN}`))
+  }
+
 
   review.rating = rating;
   review.title = title;
