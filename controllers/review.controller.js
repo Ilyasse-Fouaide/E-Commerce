@@ -5,7 +5,16 @@ const Product = require("../models/product.model");
 const { notFoundError, badRequestError } = require("../customError");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
-  res.status(StatusCodes.OK).json({ success: true })
+  const reviews = await Review
+    .find()
+    .sort("-createdAt")
+    .select("-__v");
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    count: reviews.length,
+    reviews
+  })
 });
 
 module.exports.store = tryCatchWrapper(async (req, res, next) => {
