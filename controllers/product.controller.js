@@ -96,6 +96,16 @@ module.exports.update = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.destroy = tryCatchWrapper(async (req, res, next) => {
+  const { productId } = req.params;
+
+  const product = await Product.findById(productId);
+
+  if (!product) {
+    return next(notFoundError("no product found."))
+  }
+
+  await product.remove();
+
   res.status(StatusCodes.OK).json({ success: true })
 });
 
