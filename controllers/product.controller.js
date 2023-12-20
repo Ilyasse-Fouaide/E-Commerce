@@ -122,6 +122,10 @@ module.exports.upload = tryCatchWrapper(async (req, res, next) => {
     return next(badRequestError("Image size exceeds the limit of 500kb"))
   }
 
+  if (image.mimetype.split("/")[0] !== "image") {
+    return next(badRequestError(`${image.mimetype.split("/")[1]} not supported.`))
+  }
+
   image.mv(uploadPath, function (err) {
     if (err) {
       return next(err);
