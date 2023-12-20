@@ -70,7 +70,7 @@ module.exports.show = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.update = tryCatchWrapper(async (req, res, next) => {
-  const { rating, title, review: rev, product } = req.body;
+  const { rating, title, review: rev } = req.body;
   const { reviewId } = req.params;
 
   const review = await Review.findById(reviewId);
