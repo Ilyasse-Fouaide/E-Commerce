@@ -54,7 +54,12 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
 module.exports.show = tryCatchWrapper(async (req, res, next) => {
   const { reviewId } = req.params;
 
-  const review = await Review.findById(reviewId);
+  const review = await Review
+    .findById(reviewId)
+    .populate([
+      { path: "user", select: "_id username" },
+      { path: "product", select: "" }
+    ]);
 
   if (!review) {
     return next(notFoundError("no review found."))
