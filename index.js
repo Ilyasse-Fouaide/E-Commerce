@@ -13,6 +13,7 @@ const morgan = require("morgan");
 const authRouter = require("./routes/auth.router");
 const userRouter = require("./routes/user.router");
 const productRouter = require("./routes/product.router");
+const reviewRouter = require("./routes/review.router");
 // cookie parser package
 const cookieParser = require("cookie-parser");
 // file upload package
@@ -41,6 +42,7 @@ app.get('/', (req, res) => {
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
+app.use("/api/v1/reviews", reviewRouter);
 
 app.use(notFound);
 app.use(errorHandler);
