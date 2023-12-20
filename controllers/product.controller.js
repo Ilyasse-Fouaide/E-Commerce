@@ -1,7 +1,8 @@
 const { StatusCodes } = require("http-status-codes");
 const Product = require("../models/product.model");
 const tryCatchWrapper = require("../tryCatchWrapper");
-const { notFoundError } = require("../customError");
+const { notFoundError, badRequestError } = require("../customError");
+const path = require("path");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const products = await Product
@@ -110,5 +111,21 @@ module.exports.destroy = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.upload = tryCatchWrapper(async (req, res, next) => {
-  res.status(StatusCodes.OK).json({ success: true })
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return next(badRequestError("No files were uploaded."))
+  }
+
+  const image = req.files.image;
+  const uploadPath = path.join(__dirname, "../", "public", "/upload", "/images", image.name);
+
+  if (image.size > 500000) {  // 500kb
+    return next(badRequestError("Image size exceeds the limit of 500kb"))
+  }
+
+  image.mv(uploadPath, function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.status(StatusCodes.OK).json({ success: true })
+  })
 });
