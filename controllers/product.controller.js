@@ -44,7 +44,7 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
     user: req.user.userId
   });
 
-  res.status(StatusCodes.CREATED).json({ success: true, product })
+  res.status(StatusCodes.CREATED).json({ success: true })
 });
 
 module.exports.show = tryCatchWrapper(async (req, res, next) => {
@@ -70,8 +70,7 @@ module.exports.update = tryCatchWrapper(async (req, res, next) => {
     company,
     colors,
     featured,
-    freeShipping,
-    averageRating
+    freeShipping
   } = req.body;
 
   const product = await Product.findById(productId);
