@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const Product = require("../models/product.model");
 const tryCatchWrapper = require("../tryCatchWrapper");
+const { notFoundError } = require("../customError");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const products = await Product
@@ -47,7 +48,15 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.show = tryCatchWrapper(async (req, res, next) => {
-  res.status(StatusCodes.OK).json({ success: true })
+  const { productId } = req.params;
+
+  const product = await Product.findById(productId);
+
+  if (!product) {
+    return next(notFoundError("no product found."))
+  }
+
+  res.status(StatusCodes.OK).json({ success: true, product })
 });
 
 module.exports.update = tryCatchWrapper(async (req, res, next) => {
