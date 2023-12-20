@@ -30,4 +30,13 @@ const reviewSchema = new mongoose.Schema({
 
 const Review = mongoose.model("reviews", reviewSchema);
 
+reviewSchema.pre("save", async function (next) {
+  await Review.findOne({ user: this.user }).count((err, count) => {
+    if (count > 0) {
+      return next("Error")
+    }
+    return
+  })
+})
+
 module.exports = Review
