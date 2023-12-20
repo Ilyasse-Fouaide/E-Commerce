@@ -2,9 +2,13 @@ const { StatusCodes } = require("http-status-codes");
 const tryCatchWrapper = require("../tryCatchWrapper");
 const Review = require("../models/review.model");
 const Product = require("../models/product.model");
-const { notFoundError } = require("../customError");
+const { notFoundError, badRequestError } = require("../customError");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
+  res.status(StatusCodes.OK).json({ success: true })
+});
+
+module.exports.store = tryCatchWrapper(async (req, res, next) => {
   const { rating, title, review, productId } = req.body;
   const { userId } = req.user;
 
@@ -14,6 +18,12 @@ module.exports.index = tryCatchWrapper(async (req, res, next) => {
     return next(notFoundError("no product found."))
   }
 
+  const reviewAlreadyExist = await Review.findOne({ user: userId, product: productId });
+
+  if (reviewAlreadyExist) {
+    return next(badRequestError("You have already submitted for this product."));
+  }
+
   await Review.create({
     rating,
     title,
@@ -21,13 +31,6 @@ module.exports.index = tryCatchWrapper(async (req, res, next) => {
     user: userId,
     productId
   });
-
-  res.status(StatusCodes.OK).json({ success: true })
-});
-
-module.exports.store = tryCatchWrapper(async (req, res, next) => {
-
-
 
   res.status(StatusCodes.CREATED).json({ success: true })
 });
