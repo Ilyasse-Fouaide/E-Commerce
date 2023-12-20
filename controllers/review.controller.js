@@ -49,7 +49,15 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
 });
 
 module.exports.show = tryCatchWrapper(async (req, res, next) => {
-  res.status(StatusCodes.OK).json({ success: true })
+  const { reviewId } = req.params;
+
+  const review = await Review.findById(reviewId);
+
+  if (!review) {
+    return next(notFoundError("no review found."))
+  }
+
+  res.status(StatusCodes.OK).json({ success: true, review })
 });
 
 module.exports.update = tryCatchWrapper(async (req, res, next) => {
