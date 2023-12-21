@@ -4,6 +4,7 @@ const Review = require("../models/review.model");
 const Product = require("../models/product.model");
 const { notFoundError, badRequestError, forbiddenError } = require("../customError");
 const { canIDeleteReview, canIUpdateReview } = require("../utils");
+const averageRating = require("../middlewares/averageRating");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const limit = req.query.limit || 5
