@@ -50,6 +50,13 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
     product: productId
   });
 
+  const avg = await averageRating(productId);
+
+  product.averageRating = avg.averageRating;
+  product.numOfReviews = avg.numOfReviews;
+
+  await product.save();
+
   res.status(StatusCodes.CREATED).json({ success: true })
 });
 
