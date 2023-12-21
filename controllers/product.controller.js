@@ -54,7 +54,7 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
 module.exports.show = tryCatchWrapper(async (req, res, next) => {
   const { productId } = req.params;
 
-  const product = await Product.findById(productId).populate("review");
+  const product = await Product.findById(productId);
 
   if (!product) {
     return next(notFoundError("no product found."))
