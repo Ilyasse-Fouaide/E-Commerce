@@ -93,12 +93,20 @@ module.exports.update = tryCatchWrapper(async (req, res, next) => {
     return next(forbiddenError(`403-${ReasonPhrases.FORBIDDEN}`))
   }
 
-
   review.rating = rating;
   review.title = title;
   review.review = rev
 
   await review.save();
+
+  const product = await Product.findById(review.product);
+
+  const avg = await averageRating(product._id);
+
+  product.averageRating = Math.ceil(avg.averageRating);
+  product.numOfReviews = avg.numOfReviews;
+
+  await product.save();
 
   res.status(StatusCodes.OK).json({ success: true })
 });
