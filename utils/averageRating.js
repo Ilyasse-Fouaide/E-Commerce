@@ -22,7 +22,7 @@ const updateRatingProduct = async (productId) => {
   const avg = await averageRating(productId);
 
   const product = await Product.findById(productId);
-  product.averageRating = Math.ceil(avg.averageRating);
+  product.averageRating = Number(avg.averageRating).toFixed(2);  // Rounding numbers to 2 digits after comma
   product.numOfReviews = avg.numOfReviews;
 
   await product.save();
