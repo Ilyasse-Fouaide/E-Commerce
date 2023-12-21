@@ -4,7 +4,7 @@ const Review = require("../models/review.model");
 const Product = require("../models/product.model");
 const { notFoundError, badRequestError, forbiddenError } = require("../customError");
 const { canIDeleteReview, canIUpdateReview } = require("../utils");
-const averageRating = require("../middlewares/averageRating");
+const updateRatingProduct = require("../utils/averageRating");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const limit = req.query.limit || 5
@@ -50,12 +50,7 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
     product: productId
   });
 
-  const avg = await averageRating(productId);
-
-  product.averageRating = Math.ceil(avg.averageRating);
-  product.numOfReviews = avg.numOfReviews;
-
-  await product.save();
+  await updateRatingProduct(productId)
 
   res.status(StatusCodes.CREATED).json({ success: true })
 });
@@ -99,14 +94,7 @@ module.exports.update = tryCatchWrapper(async (req, res, next) => {
 
   await review.save();
 
-  const product = await Product.findById(review.product);
-
-  const avg = await averageRating(product._id);
-
-  product.averageRating = Math.ceil(avg.averageRating);
-  product.numOfReviews = avg.numOfReviews;
-
-  await product.save();
+  await updateRatingProduct(review.product)
 
   res.status(StatusCodes.OK).json({ success: true })
 });
@@ -128,14 +116,7 @@ module.exports.destroy = tryCatchWrapper(async (req, res, next) => {
 
   await Review.findByIdAndDelete(reviewId);
 
-  const product = await Product.findById(review.product);
-
-  const avg = await averageRating(product._id);
-
-  product.averageRating = Math.ceil(avg.averageRating);
-  product.numOfReviews = avg.numOfReviews;
-
-  await product.save();
+  await updateRatingProduct(review.product)
 
   res.status(StatusCodes.OK).json({ success: true })
 });
