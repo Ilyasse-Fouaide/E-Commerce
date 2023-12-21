@@ -53,7 +53,10 @@ const productSchema = new mongoose.Schema(
       required: false,
       default: false
     },
-    inventory: Number,
+    inventory: {
+      type: Number,
+      default: null
+    },
     averageRating: {
       type: Number,
       required: false,
