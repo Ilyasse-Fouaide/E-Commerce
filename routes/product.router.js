@@ -15,4 +15,7 @@ router.route("/:productId")
   .patch(authorized, authorizedPermissions("admin"), product.update)
   .delete(authorized, authorizedPermissions("admin"), product.destroy);
 
+router.route("/:productId/reviews")
+  .get(product.productReviews)
+
 module.exports = router

@@ -3,6 +3,7 @@ const Product = require("../models/product.model");
 const tryCatchWrapper = require("../tryCatchWrapper");
 const { notFoundError, badRequestError } = require("../customError");
 const path = require("path");
+const Review = require("../models/review.model");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
   const products = await Product
@@ -141,5 +142,18 @@ module.exports.upload = tryCatchWrapper(async (req, res, next) => {
       success: true,
       image: `public/upload/images/${imageName}`
     })
+  })
+});
+
+
+module.exports.productReviews = tryCatchWrapper(async (req, res, next) => {
+  const { productId } = req.params;
+
+  const reviews = await Review.find({ product: productId });
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    count: reviews.length,
+    reviews
   })
 });
