@@ -120,5 +120,14 @@ module.exports.destroy = tryCatchWrapper(async (req, res, next) => {
 
   await Review.findByIdAndDelete(reviewId);
 
+  const product = await Product.findById(review.product);
+
+  const avg = await averageRating(product._id);
+
+  product.averageRating = avg.averageRating;
+  product.numOfReviews = avg.numOfReviews;
+
+  await product.save();
+
   res.status(StatusCodes.OK).json({ success: true })
 });
