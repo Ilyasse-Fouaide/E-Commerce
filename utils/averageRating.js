@@ -15,7 +15,7 @@ const averageRating = async (productId) => {
     }
   ]);
 
-  return reviews[0];
+  return reviews[0] || { averageRating: 0, numOfReviews: 0 };
 }
 
 const updateRatingProduct = async (productId) => {
