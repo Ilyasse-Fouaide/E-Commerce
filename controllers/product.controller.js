@@ -148,12 +148,14 @@ module.exports.upload = tryCatchWrapper(async (req, res, next) => {
 
 module.exports.productReviews = tryCatchWrapper(async (req, res, next) => {
   const { productId } = req.params;
+  const limit = req.query.limit || 5;
 
   const reviews = await Review.find({ product: productId });
 
   res.status(StatusCodes.OK).json({
     success: true,
     count: reviews.length,
+    limit,
     reviews
   })
 });
