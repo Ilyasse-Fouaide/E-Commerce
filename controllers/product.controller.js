@@ -108,6 +108,9 @@ module.exports.destroy = tryCatchWrapper(async (req, res, next) => {
     return next(notFoundError("no product found."))
   }
 
+  await Review.deleteMany({ product: productId })
+  // await product.remove();
+
   res.status(StatusCodes.OK).json({ success: true })
 });
 

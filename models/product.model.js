@@ -72,6 +72,7 @@ const productSchema = new mongoose.Schema(
   }
 );
 
+// just for populate product reviews because we don't have any reference product to reviews
 productSchema.virtual('reviews', {
   ref: "reviews",
   localField: "_id",
