@@ -52,7 +52,7 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
 
   const avg = await averageRating(productId);
 
-  product.averageRating = math.ceil(avg.averageRating);
+  product.averageRating = Math.ceil(avg.averageRating);
   product.numOfReviews = avg.numOfReviews;
 
   await product.save();
@@ -124,7 +124,7 @@ module.exports.destroy = tryCatchWrapper(async (req, res, next) => {
 
   const avg = await averageRating(product._id);
 
-  product.averageRating = math.ceil(avg.averageRating);
+  product.averageRating = Math.ceil(avg.averageRating);
   product.numOfReviews = avg.numOfReviews;
 
   await product.save();
