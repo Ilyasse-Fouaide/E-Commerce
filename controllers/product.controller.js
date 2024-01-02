@@ -6,10 +6,12 @@ const path = require("path");
 const Review = require("../models/review.model");
 
 module.exports.index = tryCatchWrapper(async (req, res, next) => {
+  const { limit } = req.query
+
   const products = await Product
     .find()
     .sort("-createdAt")
-    .limit(25)
+    .limit(limit || 25)
     .populate(
       { path: "user", select: "_id username" }
     );
@@ -35,7 +37,7 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
     averageRating
   } = req.body;
 
-  await Product.create({
+  const product = await Product.create({
     name,
     price,
     description,
@@ -49,7 +51,7 @@ module.exports.store = tryCatchWrapper(async (req, res, next) => {
     user: req.user.userId
   });
 
-  res.status(StatusCodes.CREATED).json({ success: true })
+  res.status(StatusCodes.CREATED).json({ success: true, product })
 });
 
 module.exports.show = tryCatchWrapper(async (req, res, next) => {

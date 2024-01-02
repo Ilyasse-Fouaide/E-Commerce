@@ -5,7 +5,8 @@ const authorizedPermissions = require("../middlewares/authorizedPermissions");
 
 router.route("/")
   .get(product.index)
-  .post(authorized, authorizedPermissions("admin"), product.store);
+  // .post(authorized, authorizedPermissions("admin"), product.store)
+  .post(product.store);
 
 router.route("/uploadImage")
   .post(authorized, authorizedPermissions("admin"), product.upload)
